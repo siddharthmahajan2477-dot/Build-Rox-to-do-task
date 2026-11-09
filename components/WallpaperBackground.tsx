@@ -13,12 +13,12 @@ export const WallpaperBackground: React.FC<WallpaperBackgroundProps> = ({
   settings,
   customWallpaperUrl,
 }) => {
-  const currentTheme = THEMES[settings.theme] || THEMES['royal-obsidian'];
+  const currentTheme = THEMES[settings.theme] || THEMES['minimal-light'];
 
   const presetStyle = useMemo(() => {
     if (settings.wallpaperMode === 'preset') {
       const found = WALLPAPER_PRESETS.find((p) => p.id === settings.wallpaperPreset);
-      return found?.cssStyle || WALLPAPER_PRESETS[0].cssStyle;
+      return found?.style || {};
     }
     return {};
   }, [settings.wallpaperMode, settings.wallpaperPreset]);
@@ -41,12 +41,12 @@ export const WallpaperBackground: React.FC<WallpaperBackgroundProps> = ({
   return (
     <div className="fixed inset-0 pointer-events-none -z-50 overflow-hidden">
       {/* Base Theme Color */}
-      <div className={`absolute inset-0 transition-colors duration-300 ${currentTheme.classes.bgPage}`} />
+      <div className={`absolute inset-0 transition-colors duration-300 ${currentTheme.colors.bgPage}`} />
 
       {/* Wallpaper Layer */}
       {settings.wallpaperMode !== 'none' && (
         <div
-          className="absolute inset-0 transition-all duration-300 transform scale-105"
+          className="absolute inset-0 transition-all duration-300 transform scale-102"
           style={{
             ...activeStyle,
             filter: settings.wallpaperBlur > 0 ? `blur(${settings.wallpaperBlur}px)` : 'none',
@@ -55,12 +55,14 @@ export const WallpaperBackground: React.FC<WallpaperBackgroundProps> = ({
       )}
 
       {/* Dim / Scrim Overlay */}
-      <div
-        className="absolute inset-0 bg-black transition-opacity duration-300"
-        style={{
-          opacity: (settings.wallpaperDim || 0) / 100,
-        }}
-      />
+      {settings.wallpaperDim > 0 && (
+        <div
+          className="absolute inset-0 bg-black transition-opacity duration-300"
+          style={{
+            opacity: settings.wallpaperDim / 100,
+          }}
+        />
+      )}
     </div>
   );
 };

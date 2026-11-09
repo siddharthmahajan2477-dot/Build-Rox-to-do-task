@@ -1,5 +1,5 @@
+export type TaskStatus = 'todo' | 'in_progress' | 'completed';
 export type TaskPriority = 'low' | 'medium' | 'high';
-export type TaskStatus = 'active' | 'completed';
 
 export interface Task {
   id: string;
@@ -8,65 +8,38 @@ export interface Task {
   priority: TaskPriority;
   status: TaskStatus;
   dueDate?: string; // YYYY-MM-DD
-  dueTime?: string; // HH:mm (optional)
-  category?: string;
-  tags?: string[];
   createdAt: number;
   completedAt?: number;
 }
 
 export type ThemeId =
+  | 'minimal-light'
   | 'royal-obsidian'
   | 'forest-green'
   | 'ocean-blue'
-  | 'peach-cream'
-  | 'classic-light';
-
-export type AccentColor =
-  | 'titanium'
-  | 'emerald'
-  | 'azure'
-  | 'amber'
-  | 'rose'
-  | 'violet';
+  | 'peach-cream';
 
 export type WallpaperPresetId =
-  | 'dark-mountains'
-  | 'midnight-gradient'
+  | 'minimal-white'
+  | 'dark-graphite'
   | 'forest-mist'
-  | 'ocean-depth'
-  | 'peach-sunrise'
-  | 'minimal-graphite';
+  | 'ocean-gradient'
+  | 'peach-sunrise';
 
-export type WallpaperMode = 'preset' | 'custom' | 'none';
+export type ViewMode = 'board' | 'list';
 
-export type FilterStatus = 'all' | 'active' | 'completed' | 'today' | 'overdue';
+export type NavFilter = 'all' | 'today' | 'upcoming' | 'completed';
 
-export type SortOption =
-  | 'newest'
-  | 'oldest'
-  | 'due-date'
-  | 'priority'
-  | 'alphabetical';
-
-export type LayoutDensity = 'comfortable' | 'compact';
-export type ClockFormat = '12h' | '24h';
+export type SortOption = 'newest' | 'oldest' | 'due-date' | 'priority';
 
 export interface UserSettings {
   theme: ThemeId;
-  accentColor: AccentColor;
-  wallpaperMode: WallpaperMode;
+  accentColor: string;
+  wallpaperMode: 'preset' | 'custom' | 'none';
   wallpaperPreset: WallpaperPresetId;
   wallpaperBlur: number; // 0 to 24px
-  wallpaperDim: number; // 0 to 90%
-  cardGlassOpacity: number; // 40 to 100%
-  layoutDensity: LayoutDensity;
-  showStats: boolean;
-  showGreeting: boolean;
-  clockFormat: ClockFormat;
-  userName: string;
-  soundEnabled: boolean;
-  reducedMotion: boolean;
+  wallpaperDim: number; // 0 to 80%
+  cardOpacity: number; // 50 to 100%
 }
 
 export interface ToastNotification {
@@ -74,12 +47,4 @@ export interface ToastNotification {
   message: string;
   type?: 'info' | 'success' | 'warning' | 'error';
   duration?: number;
-}
-
-export interface BackupData {
-  version: number;
-  appName: 'RoxTasks';
-  exportedAt: string;
-  tasks: Task[];
-  settings: Partial<UserSettings>;
 }
