@@ -1,0 +1,6 @@
+{
+  "name": "RoxTasks - Premium Local-First To-Do Manager",
+  "description": "Your Tasks. Your Rules. Your Style. High-performance, local-first task management with custom themes, CSS wallpapers, and browser persistence.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
